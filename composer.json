@@ -1,0 +1,21 @@
+{
+  "name": "bluebillywig/vmsrpc",
+  "description": "Composer package allowing to easily connect and communicate with the VMS.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Wimar Schippers",
+      "email": "w.schippers@bluebillywig.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.39",
+    "ext-json": "*",
+  },
+  "autoload": {
+    "psr-4": {
+      "BlueBillywig\\VmsRpc": "src/"
+    }
+  }
+}
