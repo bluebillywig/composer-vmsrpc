@@ -1,5 +1,6 @@
 ### Project Specific ###
 tests/config.yaml
+composer.lock
 
 ### Intellij Idea ###
 .idea
