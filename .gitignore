@@ -1,3 +1,6 @@
+### Project Specific ###
+tests/config.yaml
+
 ### Intellij Idea ###
 .idea
 
