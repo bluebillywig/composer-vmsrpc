@@ -44,7 +44,12 @@ final class RPCTest extends TestCase
     public function testDoActionCreateMediaClip()
     {
         try {
-            $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            if (self::$config['useRPCTokenForUnitTests']) {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            }
+            else {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', self::$config['user'], self::$config['password'], null);
+            }
         } catch(Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -65,7 +70,12 @@ final class RPCTest extends TestCase
     public function testXmlCreateDeleteMediaClip()
     {
         try {
-            $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            if (self::$config['useRPCTokenForUnitTests']) {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            }
+            else {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', self::$config['user'], self::$config['password'], null);
+            }
         } catch(Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -116,7 +126,12 @@ final class RPCTest extends TestCase
     public function testJsonSearchMediaclips()
     {
         try {
-            $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            if (self::$config['useRPCTokenForUnitTests']) {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            }
+            else {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', self::$config['user'], self::$config['password'], null);
+            }
         } catch(Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -145,7 +160,12 @@ final class RPCTest extends TestCase
     public function testSapiGetPublication()
     {
         try {
-            $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            if (self::$config['useRPCTokenForUnitTests']) {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            }
+            else {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', self::$config['user'], self::$config['password'], null);
+            }
         } catch(Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -172,7 +192,12 @@ final class RPCTest extends TestCase
     public function testUriGetPublication()
     {
         try {
-            $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            if (self::$config['useRPCTokenForUnitTests']) {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            }
+            else {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', self::$config['user'], self::$config['password'], null);
+            }
         } catch(Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -195,30 +220,37 @@ final class RPCTest extends TestCase
 
     public function testCalculateRequestToken()
     {
-        try {
-            $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
-        } catch(Exception $e) {
-            $this->fail($e->getMessage());
-        }
-        $token = $rpc->calculateRequestToken();
-        if (!is_string($token)) {
-            $this->fail("Token should be of type 'string'.");
-        }
-        if (strlen($token) !== 44) {
-            $this->fail("Token should be 44 characters long.");
-        }
-        if (strpos($token, '-') !== 3) {
-            $this->fail("Token should contains a '-' on the 4th position.");
-        }
-        if (!is_numeric(substr($token, 0, 3))) {
-            $this->fail("Token's first 3 characters should be a number.");
+        if (self::$config['useRPCTokenForUnitTests']) {
+            try {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            } catch(Exception $e) {
+                $this->fail($e->getMessage());
+            }
+            $token = $rpc->calculateRequestToken();
+            if (!is_string($token)) {
+                $this->fail("Token should be of type 'string'.");
+            }
+            if (strlen($token) !== 44) {
+                $this->fail("Token should be 44 characters long.");
+            }
+            if (strpos($token, '-') !== 3) {
+                $this->fail("Token should contains a '-' on the 4th position.");
+            }
+            if (!is_numeric(substr($token, 0, 3))) {
+                $this->fail("Token's first 3 characters should be a number.");
+            }
         }
     }
 
     public function testSapiCleanupMediaClips()
     {
         try {
-            $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            if (self::$config['useRPCTokenForUnitTests']) {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', null, null, self::$config['rpctoken']);
+            }
+            else {
+                $rpc = new RPC('https://'.self::$config['publication'].'.bbvms.com', self::$config['user'], self::$config['password'], null);
+            }
         } catch(Exception $e) {
             $this->fail($e->getMessage());
         }
