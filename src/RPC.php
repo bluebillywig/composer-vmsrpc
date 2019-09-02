@@ -159,9 +159,11 @@ class RPC
             $uri='/sapi/' . $entity;
         }
         if ($urlParameters !== null) {
-            $uri.= '?';
+            $counter = 0;
             foreach($urlParameters as $key => $value) {
+                $uri = $counter < 1 ? $uri.'?' : $uri.'&';
                 $uri.= rawurlencode($key).'='.rawurlencode($value);
+                $counter++;
             }
         }
 
@@ -298,7 +300,7 @@ class RPC
 
             $onetimeToken=$this->calculateRequestToken();
             if($rawPost){
-                $uri .= '?rpctoken=' . $onetimeToken;
+                $uri .= '&rpctoken=' . $onetimeToken;
             }
             else{
                 $arPostFields['rpctoken']=$onetimeToken;
