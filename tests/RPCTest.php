@@ -89,7 +89,7 @@ final class RPCTest extends TestCase
             );
             $response = $rpc->xml($entity, $objectId, $arProps);
             $expected = new DOMDocument;
-            $expected->loadXML('<response code="" error="" id=""><messages><message time="" context=""></message></messages></response>');
+            $expected->loadXML('<response code="" error="" id=""><messages><message time="" context=""></message><message time="" context=""></message><message time="" context=""></message></messages></response>');
             $actual = new DOMDocument;
             $actual->loadXML($response);
             $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, true);
@@ -110,7 +110,7 @@ final class RPCTest extends TestCase
             );
             $response = $rpc->xml($entity, $objectId, $arProps);
             $expected = new DOMDocument;
-            $expected->loadXML('<response code="" error=""></response>');
+            $expected->loadXML('<response code="" error=""><messages><message time="" context=""></message></messages></response>');
             $actual = new DOMDocument;
             $actual->loadXML($response);
             $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, true);
