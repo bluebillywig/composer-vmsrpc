@@ -251,8 +251,9 @@ try {
 
 To run the PHP unit tests, clone this repository, run `composer install` and copy `tests/config.example.yaml` to `tests/config.yaml`. Update `tests/config.yml` with the settings that apply to your publication.
 
-Run the tests with the following command.
+Run the tests with on of the following commands.
 
-```php
-./vendor/bin/phpunit --bootstrap ./vendor/autoload.php tests/RPCTest.php
+```bash
+./vendor/bin/phpunit
+composer test
 ```
