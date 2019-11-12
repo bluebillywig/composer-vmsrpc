@@ -89,9 +89,15 @@ final class RPCTest extends TestCase
             );
             $response = $rpc->xml($entity, $objectId, $arProps);
             $expected = new DOMDocument;
-            $expected->loadXML('<response code="" error="" id=""><messages><message time="" context=""></message></messages></response>');
+            $expected->loadXML('<response code="" error="" id=""></response>');
             $actual = new DOMDocument;
             $actual->loadXML($response);
+            // Actual xml structure of the response is something like <response code="" error="" id=""><messages time="" context="">Foo Bar<message></message></messages></response>.
+            // However, since the amount of messages are unknown and we're only interested in the response code anyways, the contents of <response code="" error="" id=""></response>
+            // are removed and only the response tag is checked.
+            while ($actual->getElementsByTagName('response')->item(0)->hasChildNodes()) {
+                $actual->getElementsByTagName('response')->item(0)->removeChild($actual->getElementsByTagName('response')->item(0)->childNodes->item(0));
+            }
             $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, true);
             $responsecode = (int) $actual->getElementsByTagName('response')->item(0)->getAttribute('code');
             if ($responsecode !== 200) {
@@ -113,6 +119,12 @@ final class RPCTest extends TestCase
             $expected->loadXML('<response code="" error=""></response>');
             $actual = new DOMDocument;
             $actual->loadXML($response);
+            // Actual xml structure of the response is something like <response code="" error="" id=""><messages time="" context="">Foo Bar<message></message></messages></response>.
+            // However, since the amount of messages are unknown and we're only interested in the response code anyways, the contents of <response code="" error="" id=""></response>
+            // are removed and only the response tag is checked.
+            while ($actual->getElementsByTagName('response')->item(0)->hasChildNodes()) {
+                $actual->getElementsByTagName('response')->item(0)->removeChild($actual->getElementsByTagName('response')->item(0)->childNodes->item(0));
+            }
             $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, true);
             $responsecode = (int) $actual->getElementsByTagName('response')->item(0)->getAttribute('code');
             if ($responsecode !== 200) {

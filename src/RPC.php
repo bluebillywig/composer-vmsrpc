@@ -159,12 +159,7 @@ class RPC
             $uri='/sapi/' . $entity;
         }
         if ($urlParameters !== null) {
-            $counter = 0;
-            foreach($urlParameters as $key => $value) {
-                $uri = $counter < 1 ? $uri.'?' : $uri.'&';
-                $uri.= rawurlencode($key).'='.rawurlencode($value);
-                $counter++;
-            }
+            $uri.= '?' . http_build_query($urlParameters);
         }
 
         VMSUtil::debugmsg("will call fetch with uri $uri and properties: $arProps","vmsrpc");
@@ -300,7 +295,7 @@ class RPC
 
             $onetimeToken=$this->calculateRequestToken();
             if($rawPost){
-                $uri .= '&rpctoken=' . $onetimeToken;
+                $uri .= '?rpctoken=' . $onetimeToken;
             }
             else{
                 $arPostFields['rpctoken']=$onetimeToken;
