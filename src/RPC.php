@@ -295,6 +295,7 @@ class RPC
 
             $onetimeToken=$this->calculateRequestToken();
             if($rawPost){
+                $uri .= strpos($uri, '?') ? '&' : '?';
                 $uri .= '?rpctoken=' . $onetimeToken;
             }
             else{
