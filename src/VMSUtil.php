@@ -261,7 +261,7 @@ class VMSUtil
      * @param $arPost
      * @return mixed
      */
-    public static function curlFetch($url,$arBasicAuth='',$arPost)
+    public static function curlFetch($url,$arBasicAuth='',$arPost = null)
     {
         // fetches url and returns response as string
         $ch = curl_init();
